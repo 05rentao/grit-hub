@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import { House, CheckCircle, Brain, CalendarCheck, BotMessageSquare, AlignJustify, Timer } from 'lucide-react';
+import { House, CheckCircle, Brain, CalendarCheck, BotMessageSquare, AlignJustify, Timer, BrushCleaning } from 'lucide-react';
 
 export default function SideBar() {
     return (
@@ -17,8 +17,31 @@ export default function SideBar() {
                 <SideBarItem Icon={CalendarCheck} label="Calendar" to="/calendar" />
                 <SideBarItem Icon={Timer} label="Pomodoro" to="/timer" />
                 <SideBarItem Icon={BotMessageSquare} label="GPT" to="/gpt" />
+                <ResetButton />
             </header>
         </div>
+    )
+}
+
+export function ResetButton() {
+    return (
+        <button 
+        onClick={() => {
+                        localStorage.removeItem('todo-lists');
+                        window.location.reload(); // force React to reload with defaults
+                    }}
+        className="flex flex-col items-center group -2">
+            <BrushCleaning 
+                size={48}
+                className="p-2 rounded-lg m-2
+                bg-red-500 text-white
+                hover:bg-red-700 hover:text-white
+                transition-colors duration-300 
+                cursor-pointer"
+            />
+            <span className="
+            text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition flex flex-wrap ">Reset storage</span>
+        </button>
     )
 }
 
@@ -42,3 +65,4 @@ export function SideBarItem({ Icon, label, to }) {
         </button>
     )
 }
+
