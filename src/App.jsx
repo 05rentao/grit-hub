@@ -6,7 +6,7 @@ import LandingGrid, { Box } from './components/LandingGrid.jsx';
 import SideBar from './components/SideBar.jsx';
 import TodoPage from './components/TodoPage.jsx'
 import JournalBlock from './components/JournalBlock'
-import TimerBlock from './components/TimerBlock'
+import PomodoroPage from './components/PomodoroPage.jsx'
 import GPTBlock from './components/GPTBlock'
 import CalBlock from './components/CalendarBlock.jsx';
 // App.jsx
@@ -26,7 +26,7 @@ export default function App() {
           <Route path="/todo" element={<TodoPage />} />
           <Route path="/journal" element={<JournalBlock />} />
           <Route path="/calendar" element={<CalBlock />} />
-          <Route path="/timer" element={<TimerBlock />} />
+          <Route path="/pomodoro" element={<PomodoroPage />} />
           <Route path="/gpt" element={<GPTBlock />} />
         </Routes>
 
