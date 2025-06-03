@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 import LandingGrid, { Box } from './components/LandingGrid.jsx';
 import SideBar from './components/SideBar.jsx';
 import TodoPage from './components/TodoPage.jsx'
-import JournalBlock from './components/JournalBlock'
+import JournalBlock from './components/JournalPage.jsx'
 import PomodoroPage from './components/PomodoroPage.jsx'
 import GPTBlock from './components/GPTBlock'
 import CalBlock from './components/CalendarBlock.jsx';

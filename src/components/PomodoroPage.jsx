@@ -12,19 +12,22 @@ export default function PomodoroPage() {
   const { mode, changeMode, timeRemaining, getPrimaryButtonConfig, getSecondaryButtonConfig, alarmRinging, autoStartBreaks, setAutoStartBreaks, soundEnabled, setSoundEnabled} = usePomodoro();
   const audioRef = useRef(null);
 
-  const ModeDropDown = () => {
+  const ModeDisplay = () => {
     return (
-      <div className="flex justify-center w-full">
-        <select
-          value={mode}
-          onChange={(e) => changeMode(e.target.value)}
-          className="w-full p-2 rounded-md bg-white border-4 border-black text-2xl"
-          // TODO: fix dropdown change mode
-        >
-          <option value={Modes.POMODORO}>Pomodoro</option>
-          <option value={Modes.SHORT_BREAK}>Short Break</option>
-          <option value={Modes.LONG_BREAK}>Long Break</option>
-        </select>
+      <div className="flex justify-around w-full border-4 border-black rounded-md">
+        {[
+          { label: 'Pomodoro', value: Modes.POMODORO },
+          { label: 'Short Break', value: Modes.SHORT_BREAK },
+          { label: 'Long Break', value: Modes.LONG_BREAK },
+        ].map(({ label, value }) => (
+          <span
+            key={value}
+            className={`flex flex-1 justify-center items-center p-4 text-5xl transition-colors duration-300
+              ${mode === value ? 'bg-black text-white' : 'bg-white text-black '}`}
+          >
+            {label}
+          </span>
+        ))}
       </div>
     );
   };
@@ -146,7 +149,7 @@ export default function PomodoroPage() {
   return (
     <div className="flex flex-col items-center justify-center h-full w-full">
       <div className="flex flex-col items-center justify-center h-full w-1/2  p-4 gap-4">
-        <ModeDropDown />
+        <ModeDisplay />
         <Time />
         <PrimaryButton />
         <SecondaryButton />
