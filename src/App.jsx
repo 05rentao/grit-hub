@@ -1,18 +1,16 @@
-import './index.css'; // or './main.css'
-import React, { useState } from 'react';
+import { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
+import './App.css'
 
 import LandingGrid, { Box } from './components/LandingGrid.jsx';
 import SideBar from './components/SideBar.jsx';
 import TodoPage from './components/TodoPage.jsx'
-import JournalBlock from './components/JournalPage.jsx'
+import JournalBlock from './components/JournalPage.js'
 import PomodoroPage from './components/PomodoroPage.jsx'
 import GPTBlock from './components/GPTBlock'
 import CalBlock from './components/CalendarBlock.jsx';
-// App.jsx
 
-
-export default function App() {
+function App() {
   const [showDashboard, setShowDashboard] = useState(true);
   return (
     <div className="h-screen flex flex-row w-screen">
@@ -30,15 +28,10 @@ export default function App() {
           <Route path="/gpt" element={<GPTBlock />} />
         </Routes>
 
-        
       </main>
-      
-      
-
-      {/* FOOTER (optional) */}
-      {/* <footer className="h-12 p-4 text-sm text-center text-gray-500 bg-white">Footer</footer> */}
-      
     </div>
 
   )
 }
+
+export default App

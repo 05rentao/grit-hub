@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import useTodoManager from '../hooks/useTodoManager.js';
 import { X, Minus } from 'lucide-react';
@@ -147,4 +146,3 @@ export function TodoItem({ item, onToggle, onDelete}) {
     </div>
   );
 }
-

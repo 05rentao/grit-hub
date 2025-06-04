@@ -1,9 +1,6 @@
-import React from 'react';
 import usePomodoro from '../hooks/usePomodoro.js';
 import { Modes } from '../hooks/usePomodoro.js';
-import { Check, Timer } from 'lucide-react';
-import { useState } from 'react';
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 
 
@@ -188,5 +185,3 @@ export function CheckBox({ className = '', value, onChange, label }) {
 
   );
 }
-
-

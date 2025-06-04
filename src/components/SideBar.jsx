@@ -1,4 +1,3 @@
-import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { House, CheckCircle, Brain, CalendarCheck, BotMessageSquare, AlignJustify, Timer, BrushCleaning } from 'lucide-react';
 

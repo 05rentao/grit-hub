@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-// usePomodoro.js
 
 export const Modes = {
   POMODORO: 'pomodoro',
@@ -197,4 +196,3 @@ export default function usePomodoro() {
         setSoundEnabled
     };
 }
-
