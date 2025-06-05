@@ -19,7 +19,6 @@ export default function TodoPage() {
   
   const { lists, addNewList, addItemToList, deleteList, deleteItem, toggleItemDone } = useTodoManager( defaultLists );
 
-  console.log("lists", lists);
 
   const AddNewListButton = () => {
     return (

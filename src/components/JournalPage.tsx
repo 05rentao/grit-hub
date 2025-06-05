@@ -68,6 +68,8 @@ export default function JournalBlock() {
       </button>
     </div>
 
+    {/* Display existing entries */}
+    
     <div className="w-full h-full flex flex-col items-start overflow-scroll m-4 px-4">
       <div className="flex flex-col w-full">
         {entries.map((entry) => (

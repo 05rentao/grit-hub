@@ -9,14 +9,12 @@ type JournalEntry = {
 };
 
 export default function useJournal() {
-    const [entries, setEntries] = useState<JournalEntry[]>([])
+    const [entries, setEntries] = useState(() => {
+        const saved = localStorage.getItem('journal-entries');
+        return saved ? JSON.parse(saved) : [];
+        });
     const [title, setTitle] = useState('') // current entry title
     const [content, setContent] = useState('')
-
-    useEffect(() => { // on component mount, load saved entries from localStorage
-        const saved = localStorage.getItem('journalE-etries');
-        if (saved) setEntries(JSON.parse(saved));
-    }, []);
 
     useEffect(() => {
         localStorage.setItem('journal-entries', JSON.stringify(entries));
@@ -33,6 +31,7 @@ export default function useJournal() {
 
         const updated = [newEntry, ...entries];
         setEntries(updated);
+        console.log('Updated entries after save:', updated);
         setTitle(''); // clear title input
         setContent(''); // clear content input
     }
