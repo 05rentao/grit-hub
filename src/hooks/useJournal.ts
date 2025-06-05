@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 type JournalEntry = {
   id: string;
@@ -9,17 +10,14 @@ type JournalEntry = {
 };
 
 export default function useJournal() {
-    const [entries, setEntries] = useState(() => {
-        const saved = localStorage.getItem('journal-entries');
-        return saved ? JSON.parse(saved) : [];
-        });
+    const [entries, setEntries] = useLocalStorage('journal-entries', [{
+        id: uuidv4(),
+        title: 'First Entry',
+        content: 'This is my first journal entry.',
+        timestamp: new Date().toISOString()
+    }]);
     const [title, setTitle] = useState('') // current entry title
     const [content, setContent] = useState('')
-
-    useEffect(() => {
-        localStorage.setItem('journal-entries', JSON.stringify(entries));
-    }, [entries]); // syncs to localStorage automatically
-
 
     const saveEntry = () => {
         const newEntry = {
