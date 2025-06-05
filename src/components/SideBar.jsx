@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { House, CheckCircle, Brain, CalendarCheck, BotMessageSquare, AlignJustify, Timer, BrushCleaning } from 'lucide-react';
+import { House, CheckCircle, NotebookPen, CalendarCheck, BotMessageSquare, AlignJustify, Timer, BrushCleaning } from 'lucide-react';
 
 export default function SideBar() {
     return (
@@ -12,7 +12,7 @@ export default function SideBar() {
                 <SideBarItem Icon={AlignJustify} />
                 <SideBarItem Icon={House} label="Home" to="/" />
                 <SideBarItem Icon={CheckCircle} label="To-Do" to="/todo" />
-                <SideBarItem Icon={Brain} label="Journal" to="/journal" />
+                <SideBarItem Icon={NotebookPen} label="Journal" to="/journal" />
                 <SideBarItem Icon={CalendarCheck} label="Calendar" to="/calendar" />
                 <SideBarItem Icon={Timer} label="Pomodoro" to="/pomodoro" />
                 <SideBarItem Icon={BotMessageSquare} label="GPT" to="/gpt" />

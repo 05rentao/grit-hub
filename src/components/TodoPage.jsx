@@ -40,7 +40,7 @@ export default function TodoPage() {
   <ul className="flex justify-start items-start p-4 overflow-x-auto w-full h-full gap-4">
     {/* Add button box */}
     {lists.map((list, i) => (
-      <TodoListBox key={i}>
+      <TodoListBox key={i} className="flex-shrink-0 w-full h-full">
         <TodoList 
           name={list.name} 
           items={list.items} 
@@ -56,10 +56,8 @@ export default function TodoPage() {
   )}
 
 export function TodoListBox({ children, className = ''}) {
-  //TODO: Add functionality to add new items to the list
-  //TODO: make lists checkboxes with strikethrough functionality
   return (
-    <div className="p-4 rounded-lg w-64 
+    <div className="p-4 rounded-lg w-1/5
     box-border bg-white border-4 border-black 
     flex flex-col h-full flex-shrink-0">
       <div className={`${className}`}>
@@ -71,66 +69,66 @@ export function TodoListBox({ children, className = ''}) {
 
 export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, onDeleteItem }) {
   const [newText, setNewText] = useState('');
-  // newText is the text that user inputs in the input box
-  // newText is a state
 
   return (
-    <div>
+    <div className="flex flex-col h-full w-full">
       {/* List title */}
       <div className="flex justify-start items-center m-2 mb-8">
         <h2 className="flex flex-1 text-xl font-bold">{name}</h2>
         <button 
           onClick={() => onDeleteList()}
-          className="text-gray-500 hover:text-white hover:bg-black rounded-sm transition-colors duration-300 "
+          className="text-gray-500 hover:text-white hover:bg-black rounded-sm transition-colors duration-300"
           >
           <Minus size={20} />
           </button>
       </div>
 
-       {/* list of all items in this list */}
-      <ul className="overflow-y-auto flex-1 pl-2">
-        {items.map((item, j) => (
-          <TodoItem 
-            key={j} 
-            item={item}
-            onToggle={() => onToggleItem(j)} // pass down toggle logic
-            onDelete={() => onDeleteItem(j)} // pass down delete logic
+      <div className="flex flex-1 w-full h-full flex-col justify-start overflow-y-scroll overflow-x-hidden ">
+        {/* list of all items in this list */}
+        <ul className="pl-2">
+          {items.map((item, j) => (
+            <TodoItem 
+              key={j} 
+              item={item} 
+              onToggle={() => onToggleItem(j)} // pass down toggle logic
+              onDelete={() => onDeleteItem(j)} // pass down delete logic
+            />
+          ))}
+        </ul>
+        <form // this is an actual box for user to imput text
+          onSubmit={(e) => {
+            e.preventDefault(); // prevent user from refreshing page
+            if (newText.trim()) {
+              onAddItem(newText);
+              setNewText(''); // clear input field
+            }
+          }}
+          className="flex mt-2 w-full"
+        >
+          <input 
+            type="text" 
+            value={newText} 
+            onChange={(e) => setNewText(e.target.value)} 
+            placeholder="Add new item" 
+            className="flex-1 p-2 border border-gray-300 rounded-l-lg"
           />
-        ))}
-      </ul>
-      <form // this is an actual box for user to imput text
-        onSubmit={(e) => {
-          e.preventDefault(); // prevent user from refreshing page
-          if (newText.trim()) {
-            onAddItem(newText);
-            setNewText(''); // clear input field
-          }
-        }}
-        className="flex mt-2"
-      >
-        <input 
-          type="text" 
-          value={newText} 
-          onChange={(e) => setNewText(e.target.value)} 
-          placeholder="Add new item" 
-          className="flex-1 p-2 border border-gray-300 rounded-l-lg"
-        />
 
-      </form>
+        </form>
+      </div>
     </div>
   );
 }
 
 export function TodoItem({ item, onToggle, onDelete}) {
   return (
-    <div className="w-full flex justify-start items-start mb-1 text-xl">
+    <div className="flex justify-start items-start mb-1 text-xl w-full">
       <input 
         type="checkbox" 
         checked={item.done} 
         onChange={onToggle} 
         className="mr-2 mt-2" />
 
-      <div className="flex flex-1 justify-start flex-wrap p-0">
+      <div className="flex flex-1 w-full justify-start flex-wrap wrap-break-word p-0">
         <span className={item.done ? "line-through text-gray-400" : ""}>
           {item.text}
         </span>
