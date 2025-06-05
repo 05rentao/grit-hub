@@ -1,3 +1,4 @@
+import { Settings } from 'lucide-react';
 import usePomodoro from '../hooks/usePomodoro.js';
 import { Modes } from '../hooks/usePomodoro.js';
 import { useState, useEffect, useRef } from 'react';
@@ -6,7 +7,7 @@ import { useState, useEffect, useRef } from 'react';
 
 export default function PomodoroPage() {
 
-  const { mode, changeMode, timeRemaining, getPrimaryButtonConfig, getSecondaryButtonConfig, alarmRinging, autoStartBreaks, setAutoStartBreaks, soundEnabled, setSoundEnabled} = usePomodoro();
+  const { mode, changeMode, timeRemaining, getPrimaryButtonConfig, getSecondaryButtonConfig, alarmRinging, settings, setAutoStartBreaks, setSoundEnabled} = usePomodoro();
   const audioRef = useRef(null);
 
   const ModeDisplay = () => {
@@ -45,7 +46,7 @@ export default function PomodoroPage() {
   const audio = audioRef.current;
   if (!audio) return;
 
-  if (alarmRinging && soundEnabled) {
+  if (alarmRinging && settings.soundEnabled) {
     audio.loop = true;
     audio.currentTime = 0;
     audio.play().catch((err) => {
@@ -153,12 +154,12 @@ export default function PomodoroPage() {
         <div className="flex flex-row items-center justify-between w-full">
           <CheckBox 
             onChange = {(e) => setAutoStartBreaks(e.target.checked)}
-            value = {autoStartBreaks}
+            value = {settings.autoStartBreaks}
             label="Auto Start Breaks"
             />
           <CheckBox 
             onChange = {(e) => setSoundEnabled(e.target.checked)}
-            value = {soundEnabled}
+            value = {settings.soundEnabled}
             label="Sound Enabled"
           />
 

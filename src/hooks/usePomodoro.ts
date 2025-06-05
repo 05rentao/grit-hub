@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 export const Modes = {
   POMODORO: 'pomodoro',
@@ -6,45 +7,72 @@ export const Modes = {
   LONG_BREAK: 'longBreak',
 };
 
-// modeConfigs only for internal memory, for where the timer left off, not state
-const modeConfigs = {
+const inticonfigs = {
   pomodoro: {
     label: 'Pomodoro',
-    remaining: 5,
     duration: 25 * 60
   },
   shortBreak: {
     label: 'Short Break',
-    remaining: 5 * 60,
     duration: 5 * 60
   },
   longBreak: {
     label: 'Long Break',
-    remaining: 15 * 60,
     duration: 15 * 60
   },
 };
 
 export default function usePomodoro() {
 
-    const [mode, setMode] = useState(Modes.POMODORO);
-    const [timeRemaining, setTimeRemaining] = useState(modeConfigs[Modes.POMODORO].remaining); 
+    const [configs, setConfigs] = useLocalStorage('mode-configs', inticonfigs); // configs for each mode
+    const [sessionState, setSessionState] = useLocalStorage("pomodoro-session", {
+        mode: Modes.POMODORO,
+        remainingTime: 25 * 60,
+        completedPomodoros: 0
+    });
+
+    const saveSessionState = () => {
+        setSessionState({
+            mode,
+            remainingTime: timeRemaining,
+            completedPomodoros
+        });
+    }
+    
     // global variable for time remaining in the *active* session/mode
-    const [isPaused, setIsPaused] = useState(false);
+    const [mode, setMode] = useState(sessionState.mode);
+    const [timeRemaining, setTimeRemaining] = useState(sessionState.remainingTime);
+    const [isPaused, setIsPaused] = useState(true);
     const [alarmRinging, setAlarmRinging] = useState(false);
     const [completedPomodoros, setCompletedPomodoros] = useState(0); // track # of completed pomodoros (# focuses completed)
 
     // user preferences
-    const [autoStartBreaks, setAutoStartBreaks] = useState(false);
-    const [soundEnabled, setSoundEnabled] = useState(true);
-    
-    useEffect(() => {
-        // ALRARM logic?
-    }, [alarmRinging]);
+    const [settings, setSettings] = useLocalStorage('pomodoro-settings', {
+        autoStartBreaks: false,
+        soundEnabled: true
+    });
 
+    // functions to update user preferences
+    const setSoundEnabled = (enabled) => {
+        setSettings(prev => ({ ...prev, soundEnabled: enabled }));
+    }  
+
+    const setAutoStartBreaks = (enabled) => {
+        setSettings(prev => ({ ...prev, autoStartBreaks: enabled }));
+    }
+
+    const updateDuration = (duration) => {
+        setConfigs(prevConfigs => ({
+            ...prevConfigs,
+            [mode]: {
+                ...prevConfigs[mode],
+                duration, // convert minutes to seconds
+            }
+        }));
+    }
+
+    //actual timer logic
     useEffect(() => {
-        // decrements the timeReminaing every second
-        // and rings when timeReminaing runs out.
         if (!isPaused && timeRemaining > 0) {
             const timer = setInterval(() => {
             setTimeRemaining(prev => prev - 1);
@@ -56,27 +84,28 @@ export default function usePomodoro() {
         if (timeRemaining === 0 && !alarmRinging) {
             setIsPaused(true); // pause automatically 
             
-            if (autoStartBreaks) {
+            if (settings.autoStartBreaks) {
                 const nextMode = getNextMode(mode, completedPomodoros);
                 changeMode(nextMode); // auto switch to next mode
                 handleStart();
                 return;
             }
 
-            if (soundEnabled) {
+            if (settings.soundEnabled) {
                 setAlarmRinging(true); // trigger alarm
             }
         }
-    }, [isPaused, timeRemaining]); // whenever isPaused, timeRemaining changes
+    }, [isPaused, timeRemaining]); 
 
     const changeMode = (newMode) => { // user manually change mode
         setMode(newMode);
         setIsPaused(true);
-        setTimeRemaining(modeConfigs[newMode].remaining);
+        setTimeRemaining(configs[newMode].duration);
+        saveSessionState();
     }
 
     const handlePause = () => { // when: full > timeRemaining > 0
-        modeConfigs[mode].remaining = timeRemaining; 
+        saveSessionState()
         setIsPaused(!isPaused);
     }
     
@@ -91,11 +120,17 @@ export default function usePomodoro() {
     }
 
     const handleStart = () => { // timeRemaining === full
-        // reset timeRemaining to full duration for all modes
-        modeConfigs[Modes.POMODORO].remaining = modeConfigs[Modes.POMODORO].duration;
-        modeConfigs[Modes.SHORT_BREAK].remaining = modeConfigs[Modes.SHORT_BREAK].duration;
-        modeConfigs[Modes.LONG_BREAK].remaining = modeConfigs[Modes.LONG_BREAK].duration;
         setIsPaused(false); // changing isPaused triggers useEffect to start the timer
+    }
+
+    const editDuration = ( durationMin, durationSec ) => {
+        const totalSeconds = durationMin * 60 + durationSec;
+        if (totalSeconds > 0) {
+            updateDuration(totalSeconds)
+            setTimeRemaining(totalSeconds);
+        } else {
+            alert('Duration must be greater than 0');
+        }
     }
 
     const getNextMode = (current, completedPomodoros) => { 
@@ -116,7 +151,7 @@ export default function usePomodoro() {
                 action: extendTime
             };
         }
-        if (isPaused && timeRemaining <= modeConfigs[mode].duration) {
+        if (isPaused && timeRemaining <= configs[mode].duration) {
             return {
                 key: 'edit',
                 label: 'Edit Duration',
@@ -128,25 +163,15 @@ export default function usePomodoro() {
             return {
                 key: 'skip',
                 label: 'Skip To Next',
-                action: SkipToNext
+                action: skipToNext
             }
         }
     }
 
-    const SkipToNext = () => {
+    const skipToNext = () => {
         const nextMode = getNextMode(mode, completedPomodoros);
         changeMode(nextMode);
         handleStart();
-    }
-
-    const editDuration = ( durationMin, durationSec ) => {
-        const totalSeconds = durationMin * 60 + durationSec;
-        if (totalSeconds > 0) {
-            modeConfigs[mode].duration = totalSeconds;
-            setTimeRemaining(totalSeconds);
-        } else {
-            alert('Duration must be greater than 0');
-        }
     }
 
     const extendTime = (minutes) => {
@@ -170,9 +195,9 @@ export default function usePomodoro() {
             };
         }
 
-        if (timeRemaining === modeConfigs[mode].duration) {
+        if (timeRemaining === configs[mode].duration) {
             return {
-            label: `Start ${modeConfigs[mode].label}`,
+            label: `Start ${configs[mode].label}`,
             action: handleStart
             };
         }
@@ -190,9 +215,8 @@ export default function usePomodoro() {
         getPrimaryButtonConfig,
         getSecondaryButtonConfig,
         alarmRinging,
-        autoStartBreaks,
+        settings,
+        setSoundEnabled,
         setAutoStartBreaks,
-        soundEnabled,
-        setSoundEnabled
     };
 }
