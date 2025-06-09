@@ -195,60 +195,6 @@ export function Time ({durations, timeRemaining, isEditing, setIsEditing, editDu
     }
   };
 
-  const TimeEdit = (({minutes, seconds, handleSubmit, editMin, setEditMin, editSec, setEditSec}) => {
-    const secInputRef = useRef(null);
-
-    return (
-      <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
-        <div className='
-        flex h-full justify-center items-center 
-        w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 bg-white'> 
-          <input 
-            type="number"
-            min="0"
-            className='bg-blue-500 w-40 justify-end items-start flex'
-            value={editMin}
-            placeholder={minutes.toString().padStart(2, '0')}
-            onChange={(e) => setEditMin(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                secInputRef.current?.focus();
-              }
-            }}
-          /> :
-          <input 
-            type="number"
-            min="0"
-            className='bg-green-500 w-40'
-            ref={secInputRef}
-            value={editSec}
-            placeholder={seconds.toString().padStart(2, '0')}
-            onChange={(e) => setEditSec(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                handleSubmit();
-              }
-            }}
-          />
-          </div>
-      </div>
-  )});
-
-  const TimeDisplay = (({minutes, seconds}) => {
-    return (
-      <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
-        <time className={`
-        flex h-full justify-center items-center 
-        w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 ${(minutes === 0) && (seconds === 0) ? 'bg-green-400' : 'bg-white'}`}>  
-          <>
-            {minutes.toString().padStart(2, '0')}:
-            {seconds.toString().padStart(2, '0')}
-          </>
-        </time>
-      </div>
-    )
-  });
-
   if (isEditing) {
     return (
       <TimeEdit 
@@ -269,6 +215,60 @@ export function Time ({durations, timeRemaining, isEditing, setIsEditing, editDu
       />
     );
   }
+};
+
+export function TimeDisplay({minutes, seconds}) {
+  return (
+    <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
+      <time className={`
+      flex h-full justify-center items-center 
+      w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 ${(minutes === 0) && (seconds === 0) ? 'bg-green-400' : 'bg-white'}`}>  
+        <>
+          {minutes.toString().padStart(2, '0')}:
+          {seconds.toString().padStart(2, '0')}
+        </>
+      </time>
+    </div>
+  )
+};
+
+export function TimeEdit({minutes, seconds, handleSubmit, editMin, setEditMin, editSec, setEditSec}) {
+  const secInputRef = useRef(null);
+  return (
+    <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
+      <div className='
+      flex h-full justify-center items-center 
+      w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 bg-white'> 
+        <input 
+          type="number"
+          min="0"
+          className='bg-blue-500 w-40 justify-end items-start flex'
+          value={editMin ?? ''}
+          placeholder={minutes.toString().padStart(2, '0')}
+          onChange={(e) => setEditMin(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              secInputRef.current?.focus();
+            }
+          }}
+        /> :
+        <input 
+          type="number"
+          min="0"
+          className='bg-green-500 w-40'
+          ref={secInputRef}
+          value={editSec ?? ''}
+          placeholder={seconds.toString().padStart(2, '0')}
+          onChange={(e) => setEditSec(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSubmit();
+            }
+          }}
+        />
+        </div>
+    </div>
+  )
 };
 
 export function ResetConfigs() {
