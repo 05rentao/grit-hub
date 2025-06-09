@@ -179,16 +179,13 @@ export default function usePomodoro() {
                 label: "Need More Time",
                 action: extendTime
             };
-        };
-        if (isPaused && timeRemaining > 0) {
+        } else if (isPaused) { //  && timeRemaining > 0
             return {
                 key: 'edit',
                 label: 'Edit Duration',
                 action: editDuration
             };
-        };
-        
-        if (!isPaused && timeRemaining > 0) {
+        } else { // (!isPaused && timeRemaining > 0)
             return {
                 key: 'skip',
                 label: 'Skip To Next',
@@ -240,6 +237,7 @@ export default function usePomodoro() {
 
     return {
         mode,
+        configs,
         timeRemaining,
         getPrimaryButtonConfig,
         getSecondaryButtonConfig,
