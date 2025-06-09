@@ -116,11 +116,9 @@ export default function PomodoroPage() {
       )
     }
     if (secondaryButtonConfig.key === 'edit') {
-      // TODO: currently a placeholder for editing duration
-      // TODO: make <time> component editable to change duration?
       return (
         <button 
-          onClick={() => setIsEditing(true)} // Example duration
+          onClick={() => setIsEditing(true)} 
           className="p-4 rounded-md w-full
            bg-white border-4 border-black 
           hover:bg-black hover:text-white 
@@ -182,17 +180,17 @@ export function CheckBox({ className = '', value, onChange, label }) {
   );
 }
 
-export function Time ({timeRemaining, isEditing, setIsEditing, editDuration, className = '' }) {
+export function Time ({durations, timeRemaining, isEditing, setIsEditing, editDuration, className = '' }) {
   let minutes = Math.floor(timeRemaining / 60);
   let seconds = timeRemaining % 60;
 
-  const [editMin, setEditMin] = useState(minutes.toString().padStart(2, '0'));
-  const [editSec, setEditSec] = useState(seconds.toString().padStart(2, '0'));
+  const [editMin, setEditMin] = useState(Math.floor(durations / 60).toString().padStart(2, '0'));
+  const [editSec, setEditSec] = useState((durations % 60).toString().padStart(2, '0'));
 
   const handleSubmit = () => {
     const totalSeconds = parseInt(editMin) * 60 + parseInt(editSec);
-    if (!isNaN(totalSeconds) && totalSeconds >= 0 && isEditing) {
-      editDuration(totalSeconds); // callback to update timeRemaining
+    if (!isNaN(totalSeconds) && isEditing) {
+      editDuration(totalSeconds); 
       setIsEditing(false);
     }
   };
@@ -256,7 +254,7 @@ export function Time ({timeRemaining, isEditing, setIsEditing, editDuration, cla
       <TimeEdit 
         minutes={minutes} 
         seconds={seconds} 
-        handleSubmit={handleSubmit} 
+        handleSubmit={handleSubmit}
         editMin={editMin} 
         setEditMin={setEditMin} 
         editSec={editSec} 

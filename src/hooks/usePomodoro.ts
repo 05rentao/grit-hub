@@ -126,15 +126,10 @@ export default function usePomodoro() {
     }, [isPaused, timeRemaining]); 
 
     const changeMode = (newMode) => { // user manually change mode
-        console.log(`changeMode called with: ${newMode}`);
         setMode(newMode);
         setIsPaused(true);
         setTimeRemaining(configs[newMode].duration);
         saveSessionState();
-        console.log(`New mode label: ${configs[newMode].label}`);
-        console.log(`New mode duration: ${configs[newMode].duration} seconds, ${configs[newMode].duration / 60} minutes`);
-        console.log(`current mode time remaining: ${timeRemaining}`);
-        console.log(`Completed Pomodoros: ${completedPomodoros}`);
     }
 
     const handlePause = () => { // when: full > timeRemaining > 0
@@ -156,11 +151,12 @@ export default function usePomodoro() {
         setIsPaused(false); // changing isPaused triggers useEffect to start the timer
     }
 
-    const editDuration = ( durationMin, durationSec ) => {
-        const totalSeconds = durationMin * 60 + durationSec;
+    const editDuration = ( totalSeconds ) => {
         if (totalSeconds > 0) {
             updateDuration(totalSeconds)
             setTimeRemaining(totalSeconds);
+            console.log(`Updated ${mode} duration to ${totalSeconds} seconds`);
+
         } else {
             alert('Duration must be greater than 0');
         }
