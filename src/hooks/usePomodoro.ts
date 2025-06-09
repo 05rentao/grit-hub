@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage.js';
 
 export const Modes = {
@@ -37,6 +37,7 @@ export default function usePomodoro() {
             remainingTime: timeRemaining,
             completedPomodoros
         });
+        // autosave to localStorage in useLocalStorage hook
     }
     
     // global variable for time remaining in the *active* session/mode
@@ -45,6 +46,33 @@ export default function usePomodoro() {
     const [isPaused, setIsPaused] = useState(true);
     const [alarmRinging, setAlarmRinging] = useState(false);
     const [completedPomodoros, setCompletedPomodoros] = useState(0); // track # of completed pomodoros (# focuses completed)
+
+    const sessionRef = useRef({
+        mode,
+        remainingTime: timeRemaining,
+        completedPomodoros
+    });
+
+    // Keep sessionRef updated with latest values
+    useEffect(() => {
+        sessionRef.current = {
+        mode,
+        remainingTime: timeRemaining,
+        completedPomodoros
+        };
+    }, [mode, timeRemaining, completedPomodoros]);
+
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            localStorage.setItem("pomodoro-session", JSON.stringify(sessionRef.current));
+        };
+
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        return () => {
+            window.removeEventListener("beforeunload", handleBeforeUnload);
+            localStorage.setItem("pomodoro-session", JSON.stringify(sessionRef.current));
+        };
+    }, []); // ← only run once on mount
 
     // user preferences
     const [settings, setSettings] = useLocalStorage('pomodoro-settings', {
@@ -98,10 +126,15 @@ export default function usePomodoro() {
     }, [isPaused, timeRemaining]); 
 
     const changeMode = (newMode) => { // user manually change mode
+        console.log(`changeMode called with: ${newMode}`);
         setMode(newMode);
         setIsPaused(true);
         setTimeRemaining(configs[newMode].duration);
         saveSessionState();
+        console.log(`New mode label: ${configs[newMode].label}`);
+        console.log(`New mode duration: ${configs[newMode].duration} seconds, ${configs[newMode].duration / 60} minutes`);
+        console.log(`current mode time remaining: ${timeRemaining}`);
+        console.log(`Completed Pomodoros: ${completedPomodoros}`);
     }
 
     const handlePause = () => { // when: full > timeRemaining > 0
@@ -150,22 +183,22 @@ export default function usePomodoro() {
                 label: "Need More Time",
                 action: extendTime
             };
-        }
-        if (isPaused && timeRemaining <= configs[mode].duration) {
+        };
+        if (isPaused && timeRemaining > 0) {
             return {
                 key: 'edit',
                 label: 'Edit Duration',
                 action: editDuration
-                }
             };
+        };
         
         if (!isPaused && timeRemaining > 0) {
             return {
                 key: 'skip',
                 label: 'Skip To Next',
                 action: skipToNext
-            }
-        }
+            };
+        };
     }
 
     const skipToNext = () => {
@@ -214,7 +247,9 @@ export default function usePomodoro() {
         timeRemaining,
         getPrimaryButtonConfig,
         getSecondaryButtonConfig,
+        editDuration,
         alarmRinging,
+        changeMode,
         settings,
         setSoundEnabled,
         setAutoStartBreaks,
