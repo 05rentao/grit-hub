@@ -11,6 +11,10 @@ export default function JournalBlock() {
     return entries.find(entry => entry.id === selectedEntryID) ?? null;
   }, [entries, selectedEntryID]);
 
+  const wordCount = (words : String) => { 
+    return words.trim().split(/\s+/).length
+  }
+
   useEffect(() => {
     if (selectedEntry) {
       setTitle(selectedEntry.title);
@@ -80,7 +84,10 @@ export default function JournalBlock() {
 
               <h3 className="font-bold">{entry.title}</h3>
               <p className="line-clamp-2">{entry.content}</p>
-              <small>{new Date(entry.timestamp).toLocaleString()}</small>
+              <div className="text-gray-500 text-sm flex flex-row justify-start items-center">
+                <small>{new Date(entry.timestamp).toLocaleString()}</small>
+                <small className="ml-4">{wordCount(entry.content)} words</small>
+              </div>
               
             </div>
             <div>
