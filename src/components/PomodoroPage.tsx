@@ -54,6 +54,7 @@ export default function PomodoroPage() {
       <button 
         onClick={() => {
           setIsEditing(false);
+          
           getPrimaryButtonConfig().action();
         }} 
         className={` 

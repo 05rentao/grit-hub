@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import useTodoManager from '../hooks/useTodoManager.js';
 import { X, Minus } from 'lucide-react';
+import ResetStorageButton from './ResetStorageButton.js';
 
 
 export default function TodoPage() {
@@ -82,7 +83,7 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
           </button>
       </div>
 
-      <div className="flex flex-1 w-full h-full flex-col justify-start overflow-y-scroll overflow-x-hidden ">
+      <div className="flex flex-1 w-full h-full flex-col justify-start overflow-y-auto overflow-x-hidden ">
         {/* list of all items in this list */}
         <ul className="pl-2">
           {items.map((item, j) => (
@@ -139,7 +140,7 @@ export function TodoItem({ item, onToggle, onDelete}) {
         >
         <X size={20} />
       </button>
-      
+      <ResetStorageButton storageKey='todo-lists' />
     </div>
   );
 }
