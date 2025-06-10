@@ -1,12 +1,33 @@
-# React + Vite
+# GritHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**All in one productivity app: Todo lists, Pomodoro, Journaling**
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- To-Do Lists: Add, complete, and delete tasks; supports persistent storage.
 
-## Expanding the ESLint configuration
+- Multiple Lists: Organize tasks across different categories.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- Pomodoro Timer: Focus sessions to help you stay on track.
+
+- Journaling: Write and reflect, can be stored and edited later.
+
+- Dashboard Navigation: Clickable icon sidebar.
+
+- [WIP] Responsive Design: Works on desktop and mobile.
+
+- [WIP] Affirmations: Daily motivational phrases to keep you going.
+
+## 📦 Tech Stack
+
+- Frontend: React, Tailwind CSS
+- State Management: React Hooks
+- Persistent Storage: localStorage
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/05rentao/grit-hub.git
+cd grit-hub
+npm install
+npm run dev
