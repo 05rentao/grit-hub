@@ -13,12 +13,12 @@ import CalBlock from './components/CalendarBlock.jsx';
 function App() {
   const [showDashboard, setShowDashboard] = useState(true);
   return (
-    <div className="h-screen flex flex-row w-screen">
+    <div className="h-screen flex flex-row w-screen dark-brown bg-bg text-txt">
        {/* SideBar */}
         <SideBar />
 
       {/* MAIN */}
-      <main className="h-full w-full ml-24 p-4 overflow-x-auto">
+      <main className="h-full w-full ml-24 p-4 overflow-x-auto ">
         <Routes>
           <Route path="/" element={<LandingGrid />} />
           <Route path="/todo" element={<TodoPage />} />

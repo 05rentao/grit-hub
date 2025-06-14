@@ -55,18 +55,18 @@ export default function JournalBlock() {
         placeholder="Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="w-full text-2xl p-4 mb-2 border-4 border-black rounded focus"
+        className="w-full text-2xl p-4 mb-2 border-4 bg-bg text-txt border-border rounded focus"
       />
       <textarea
         placeholder="Write your entry here..."
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        className="w-full text-2xl p-4 mb-2 border-4 border-black rounded 
+        className="w-full text-2xl p-4 mb-2 border-4 border-border rounded bg-bg text-txt
         flex flex-1 resize-none"
       />
       <button
         onClick={useSave}
-        className="w-full bg-black text-white p-4 mb-4 border-4 border-black rounded hover:bg-white hover:text-black  transition-colors duration-300 font-bold text-2xl "
+        className="w-full bg-bg-secondary text-txt-secondary p-4 mb-4 border-4 border-border rounded hover:bg-bg hover:text-txt  transition-colors duration-300 font-bold text-2xl "
       >
         Save Entry
       </button>
@@ -78,7 +78,7 @@ export default function JournalBlock() {
       <div className="flex flex-col w-full">
         {entries.map((entry) => (
           <div key={entry.id} 
-            className="w-full text-2xl p-4 mb-2 border-4 border-black rounded
+            className="w-full text-2xl p-4 mb-2 border-4 border-border rounded
             flex flex-row justify-between items-start">
             <div className = "flex flex-1 flex-col">
 
@@ -126,8 +126,8 @@ export default function JournalBlock() {
         <BrushCleaning
           size={48}
           className="p-2 rounded-lg m-2
-            bg-red-500 text-white
-            hover:bg-red-700
+            bg-primary text-txt-secondary
+            hover:bg-bg-secondary 
             transition-colors duration-300 cursor-pointer"
         />
         <span className="text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">

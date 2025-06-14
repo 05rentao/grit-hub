@@ -27,9 +27,9 @@ export default function TodoPage() {
           onClick={addNewList}
           className="
             p-4 rounded-lg w-64 text-3xl
-            box-border bg-white border-4 border-black 
+            box-border bg-bg border-4 border-border 
             flex flex-row justify-center items-center h-full flex-shrink-0
-            hover:bg-black hover:text-white transition-colors duration-300"
+            hover:bg-bg-secondary hover:text-txt-secondary transition-colors duration-300"
         >
           + Add List
         </button>
@@ -58,7 +58,7 @@ export default function TodoPage() {
 export function TodoListBox({ children, className = ''}) {
   return (
     <div className="p-4 rounded-lg w-1/5
-    box-border bg-white border-4 border-black 
+    box-border bg-bg border-4 border-border 
     flex flex-col h-full flex-shrink-0">
       <div className={`${className}`}>
         {children}
@@ -77,13 +77,13 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
         <h2 className="flex flex-1 text-xl font-bold">{name}</h2>
         <button 
           onClick={() => onDeleteList()}
-          className="text-gray-500 hover:text-white hover:bg-black rounded-sm transition-colors duration-300"
+          className="text-txt hover:text-txt-secondary hover:bg-bg-secondary rounded-sm transition-colors duration-300"
           >
           <Minus size={20} />
           </button>
       </div>
 
-      <div className="flex flex-1 w-full h-full flex-col justify-start overflow-y-auto overflow-x-hidden ">
+      <div className="flex flex-1 w-full h-full flex-col justify-start overflow-y-auto">
         {/* list of all items in this list */}
         <ul className="pl-2">
           {items.map((item, j) => (
@@ -110,7 +110,7 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
             value={newText} 
             onChange={(e) => setNewText(e.target.value)} 
             placeholder="Add new item" 
-            className="flex-1 p-2 border border-gray-300 rounded-l-lg"
+            className="flex-1 p-2 w-full border border-border rounded-l-lg bg-bg text-txt "
           />
 
         </form>
@@ -136,7 +136,7 @@ export function TodoItem({ item, onToggle, onDelete}) {
 
       <button
         onClick={onDelete}
-        className="mx-2 mt-1 hover:text-white hover:bg-black rounded-sm transition-colors duration-300 text-gray-500"
+        className="mx-2 mt-1 hover:text-txt-secondary hover:bg-bg-secondary rounded-sm transition-colors duration-300 text-txt"
         >
         <X size={20} />
       </button>

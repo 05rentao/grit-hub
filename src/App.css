@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.light-brown { 
+    /*https://coolors.co/795d35-4e360e-f2ebc9-ce370c-d6c082*/
+    --bg-color-primary: 242, 235, 201;
+    --bg-color-secondary: 78, 54, 14;
+    --card-color: 242, 235, 201;
+    --border-color: 78, 54, 14;
+    --txt-color-primary: 78, 54, 14;
+    --txt-color-secondary: 242, 235, 201;
+    --primary-color: 206, 55, 12;
+    --secondary-color: 163, 46, 0;
+}
+
+.light { 
+    --bg-color-primary: 255, 255, 255;
+    --bg-color-secondary: 0, 0, 0;
+    --card-color: 255, 255, 255;
+    --border-color: 0, 0, 0;
+    --txt-color-primary: 0, 0, 0;
+    --txt-color-secondary: 255, 255, 255;
+    --primary-color: 206, 55, 12;
+    --secondary-color: 163, 46, 0;
+}
+
+.dark { 
+    --bg-color-primary: 0, 0, 0;
+    --bg-color-secondary: 255, 255, 255;
+    --card-color: 0, 0, 0;
+    --border-color: 255, 255, 255;
+    --txt-color-primary: 255, 255, 255;
+    --txt-color-secondary: 0, 0, 0;
+    --primary-color: 206, 55, 12;
+    --secondary-color: 163, 46, 0;
+}
+
+.dark-brown {
+    --bg-color-primary: 214, 192, 130;
+    --bg-color-secondary: 242, 235, 201;
+    --card-color: 35, 41, 27;
+    --border-color: 242, 235, 201;
+    --txt-color-primary: 242, 235, 201;
+    --txt-color-secondary: 214, 192, 130;
+    --primary-color: 206, 55, 12;
+    --secondary-color: 163, 46, 0;
+}

@@ -6,7 +6,7 @@ export default function SideBar() {
         <div>
         <header className="
             h-full p-1 ml-4 mr-4 fixed
-            bg-white border-l-4 border-r-4 border-black 
+            bg-bg border-l-4 border-r-4 border-border 
             flex flex-col justify-start items-center">
 
                 <SideBarItem Icon={AlignJustify} />
@@ -33,8 +33,8 @@ export function ResetButton() {
             <BrushCleaning 
                 size={48}
                 className="p-2 rounded-lg m-2
-                bg-red-500 text-white
-                hover:bg-red-700 hover:text-white
+                bg-primary text-txt-secondary
+                hover:bg-bg-secondary 
                 transition-colors duration-300 
                 cursor-pointer"
             />
@@ -54,8 +54,8 @@ export function SideBarItem({ Icon, label, to }) {
             <Icon
             size={48}
             className="p-2 rounded-lg m-2
-            bg-white text-black
-            hover:bg-black hover:text-white
+            bg-bg text-txt
+            hover:bg-bg-secondary hover:text-txt-secondary
             transition-colors duration-300 
             cursor-pointer"
             />

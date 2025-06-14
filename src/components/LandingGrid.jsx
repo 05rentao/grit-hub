@@ -20,11 +20,12 @@ export function Box({ text, subText, className = '', textSize = 'text-xl' }) {
   return (
     <div className={`
         flex flex-col justify-center items-center 
-         bg-green-500 p-4 rounded-lg shadow-md border-4 border-black 
-         hover:bg-black hover:text-white transition-colors duration-300
+         bg-bg-secondary p-4 rounded-lg shadow-md border-4 border-border 
+         text-txt-secondary
+         hover:bg-bg hover:text-txt transition-colors duration-300
          ${className}`}>
       <h2 className={`mb-2 font-bold ${textSize}`}>{text}</h2>
-      <p className="text-gray-700 text-sm">{subText}</p>
+      <p className="text-red text-sm">{subText}</p>
     </div>
   );
 }

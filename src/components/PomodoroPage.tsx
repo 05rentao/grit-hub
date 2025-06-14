@@ -13,7 +13,7 @@ export default function PomodoroPage() {
 
   const ModeDisplay = () => {
     return (
-      <div className="flex justify-around w-full border-4 border-black rounded-md">
+      <div className="flex justify-around border-4 border-border w-full rounded-md">
         {[
           { label: 'Pomodoro', value: Modes.POMODORO },
           { label: 'Short Break', value: Modes.SHORT_BREAK },
@@ -23,7 +23,7 @@ export default function PomodoroPage() {
             key={value}
             onClick={() => changeMode(value)}
             className={`flex flex-1 justify-center items-center p-4 text-5xl transition-colors duration-300 rounded-none
-              ${mode === value ? 'bg-black text-white' : 'bg-white text-black '}`}
+              ${mode === value ? 'bg-bg-secondary text-txt-secondary' : 'bg-bg-primary text-txt'}`}
           >
             {label}
           </button>
@@ -59,8 +59,8 @@ export default function PomodoroPage() {
         }} 
         className={` 
           p-4 rounded-md w-full
-           bg-white border-4 border-black 
-          hover:bg-black hover:text-white 
+           bg-bg border-4 border-border 
+          hover:bg-bg-secondary hover:text-txt-secondary 
           transition-color duration-300 text-4xl
         `}
       >
@@ -76,8 +76,8 @@ export default function PomodoroPage() {
           <button 
             key={min}
             onClick={() => onExtend(min)}
-            className="flex-1 w-1/3 py-5 rounded-md text-2xl bg-white border-4 h-full border-black 
-              hover:bg-black hover:text-white transition-colors duration-300 mx-1"
+            className="flex-1 w-1/3 py-5 rounded-md text-2xl bg-bg border-4 h-full border-border 
+              hover:bg-bg-secondary hover:text-txt-secondary transition-colors duration-300 mx-1"
           >
             +{min}
           </button>
@@ -97,8 +97,8 @@ export default function PomodoroPage() {
         <button
           onClick={() => setRevealed(true)}
           className="p-4 rounded-md w-full
-           bg-white border-4 border-black 
-          hover:bg-black hover:text-white 
+           bg-bg border-4 border-border 
+          hover:bg-bg-secondary hover:text-txt-secondary 
           transition-color duration-300 text-4xl"
         >
           More Time
@@ -113,8 +113,8 @@ export default function PomodoroPage() {
         <button 
           onClick={secondaryButtonConfig.action} 
           className="p-4 rounded-md w-full
-           bg-white border-4 border-black 
-          hover:bg-black hover:text-white 
+           bg-bg border-4 border-border 
+          hover:bg-bg-secondary hover:text-txt-secondary 
           transition-color duration-300 text-4xl"
         > 
           {secondaryButtonConfig.label}
@@ -126,8 +126,8 @@ export default function PomodoroPage() {
         <button 
           onClick={() => setIsEditing(true)} 
           className="p-4 rounded-md w-full
-           bg-white border-4 border-black 
-          hover:bg-black hover:text-white 
+           bg-bg border-4 border-border 
+          hover:bg-bg-secondary hover:text-txt-secondary 
           transition-color duration-300 text-4xl"
         >
           {secondaryButtonConfig.label}
@@ -138,7 +138,7 @@ export default function PomodoroPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full">
+    <div className="flex flex-col items-center justify-center h-full w-full bg-bg text-txt">
       <div className="flex flex-col items-center justify-center h-full w-1/2  p-4 gap-4">
         <ModeDisplay />
         <Time 
@@ -178,11 +178,10 @@ export function CheckBox({ className = '', value, onChange, label }) {
         type="checkbox"
         checked={value}
         onChange={onChange}
-        className={`w-6 h-6 rounded-md border-2 border-black 
-          bg-white checked:bg-black checked:border-white
+        className={`w-6 h-6 rounded-lg bg-bg border-4 border-border
           ${className}`}
       />
-      <span className="ml-2 text-2xl">{ label }</span>
+      <span className="ml-2 text-2xl text-txt">{ label }</span>
     </label>
 
   );
@@ -194,9 +193,6 @@ export function Time ({durations, timeRemaining, isEditing, setIsEditing, editDu
   let seconds = timeRemaining % 60;
   let durationsMinutes = Math.floor(durations / 60);
   let durationsSeconds = durations % 60;
-  
-
-  // console.log('Time component re-rendered with: isEditing', isEditing, 'duration:', durations, 'minutes:', minutes, 'seconds:', seconds);
 
   const [editMin, setEditMin] = useState(format(durationsMinutes));
   const [editSec, setEditSec] = useState(format(durationsSeconds));
@@ -237,7 +233,7 @@ export function TimeDisplay({minutes, seconds}) {
     <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
       <time className={`
       flex h-full justify-center items-center 
-      w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 ${(minutes === 0) && (seconds === 0) ? 'bg-green-400' : 'bg-white'}`}>  
+      w-full text-8xl px-8 py-4 border-4  border-border rounded-md transition-colors duration-500 ${(minutes === 0) && (seconds === 0) ? 'bg-green-400' : 'bg-bg'}`}>  
         <>
           {minutes.toString().padStart(2, '0')}:
           {seconds.toString().padStart(2, '0')}
@@ -253,7 +249,7 @@ export function TimeEdit({minutes, seconds, handleSubmit, editMin, setEditMin, e
     <div className="text-3xl font-bold h-1/2 w-full flex justify-center items-center">
       <div className='
       flex h-full justify-center items-center 
-      w-full text-8xl px-8 py-4 border-4  border-black rounded-md transition-colors duration-500 bg-white'> 
+      w-full text-8xl px-8 py-4 border-4  border-border rounded-md transition-colors duration-500 bg-bg'> 
         <input 
           type="number"
           min="0"
@@ -299,8 +295,8 @@ export function ResetConfigs() {
         <BrushCleaning
           size={48}
           className="p-2 rounded-lg m-2
-            bg-red-500 text-white
-            hover:bg-red-700
+            bg-primary text-txt-secondary
+            hover:bg-secondary
             transition-colors duration-300 cursor-pointer"
         />
         <span className="text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">
@@ -324,8 +320,8 @@ export function ResetPomos() {
         <BrushCleaning
           size={48}
           className="p-2 rounded-lg m-2
-            bg-red-500 text-white
-            hover:bg-red-700
+            bg-primary text-txt-secondary
+            hover:bg-secondary
             transition-colors duration-300 cursor-pointer"
         />
         <span className="text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">
