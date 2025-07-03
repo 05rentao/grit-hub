@@ -165,8 +165,8 @@ export default function PomodoroPage() {
             value = {settings.soundEnabled}
             label="Sound Enabled"
           />
-          <ResetConfigs />
-          <ResetPomos />
+          <ResetButtons />
+
         </div>
       </div>
     <audio ref={audioRef} src="/alarm.mp3" preload="auto" />
@@ -285,24 +285,13 @@ export function TimeEdit({minutes, seconds, handleSubmit, editMin, setEditMin, e
   )
 };
 
-export function ResetConfigs() {
-  return (
-    <ResetStorageButton storageKey='mode-configs' label='Reset Configs' />
-  );
-}
-
-export function ResetPomos() {
-  return (
-    <ResetStorageButton storageKey='pomodoro-session' label='Reset Pomodoro' className='' />
-  );
-}
-
-function Reset() {
-    <ResetStorageBox 
-      buttons={[
-        {storageKey: 'mode-configs', label: 'Reset Configs'},
-        {storageKey: 'pomodoro-session', label:'Reset Pomodoro'}
-        
-    ]}
-  />
+function ResetButtons() {
+    return (
+      <ResetStorageBox
+        buttons={[
+          { storageKey: 'mode-configs', label: 'Reset Configs' },
+          { storageKey: 'pomodoro-session', label: 'Pomodoros' }
+        ]}
+      />
+    );
 }

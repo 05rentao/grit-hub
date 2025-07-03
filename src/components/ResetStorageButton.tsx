@@ -14,7 +14,7 @@ export default function ResetStorageBox({
 }) {
     return (
         <div className={`fixed bottom-4 right-4 z-50 ${className}`}>
-            <div className="flex flex-row items-center justify-right">
+            <div className="flex flex-row items-start justify-right gap-0">
                 {buttons.map((button) => (
                     <ResetStorageButton
                         key={button.storageKey}
