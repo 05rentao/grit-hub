@@ -16,31 +16,8 @@ export default function SideBar() {
                 <SideBarItem Icon={CalendarCheck} label="Calendar" to="/calendar" />
                 <SideBarItem Icon={Timer} label="Pomodoro" to="/pomodoro" />
                 <SideBarItem Icon={BotMessageSquare} label="GPT" to="/gpt" />
-                <ResetButton />
             </header>
         </div>
-    )
-}
-
-export function ResetButton() {
-    return (
-        <button 
-        onClick={() => {
-                        localStorage.removeItem('todo-lists');
-                        window.location.reload(); // force React to reload with defaults
-                    }}
-        className="flex flex-col items-center group -2">
-            <BrushCleaning 
-                size={48}
-                className="p-2 rounded-lg m-2
-                bg-primary text-txt-secondary
-                hover:bg-bg-secondary 
-                transition-colors duration-300 
-                cursor-pointer"
-            />
-            <span className="
-            text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition flex flex-wrap ">Reset storage</span>
-        </button>
     )
 }
 

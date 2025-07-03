@@ -3,6 +3,9 @@ import usePomodoro from '../hooks/usePomodoro.js';
 import { Modes } from '../hooks/usePomodoro.js';
 import { useState, useEffect, useRef } from 'react';
 import { BrushCleaning } from 'lucide-react';
+import ResetStorageBox from './ResetStorageButton.js';
+import { ResetStorageButton } from './ResetStorageButton.js';
+
 
 export default function PomodoroPage() {
 
@@ -284,50 +287,22 @@ export function TimeEdit({minutes, seconds, handleSubmit, editMin, setEditMin, e
 
 export function ResetConfigs() {
   return (
-    <div className="fixed bottom-4 right-4 z-50">
-      <button
-        onClick={() => {
-          localStorage.removeItem('mode-configs');
-          window.location.reload();
-        }}
-        className="flex flex-col items-center group"
-      >
-        <BrushCleaning
-          size={48}
-          className="p-2 rounded-lg m-2
-            bg-primary text-txt-secondary
-            hover:bg-secondary
-            transition-colors duration-300 cursor-pointer"
-        />
-        <span className="text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">
-          configs
-        </span>
-      </button>
-    </div>
+    <ResetStorageButton storageKey='mode-configs' label='Reset Configs' />
   );
 }
 
 export function ResetPomos() {
   return (
-    <div className="fixed bottom-4 right-20 z-50">
-      <button
-        onClick={() => {
-          localStorage.removeItem('pomodoro-session');
-          window.location.reload();
-        }}
-        className="flex flex-col items-center group"
-      >
-        <BrushCleaning
-          size={48}
-          className="p-2 rounded-lg m-2
-            bg-primary text-txt-secondary
-            hover:bg-secondary
-            transition-colors duration-300 cursor-pointer"
-        />
-        <span className="text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">
-          pomodoros
-        </span>
-      </button>
-    </div>
+    <ResetStorageButton storageKey='pomodoro-session' label='Reset Pomodoro' className='' />
   );
+}
+
+function Reset() {
+    <ResetStorageBox 
+      buttons={[
+        {storageKey: 'mode-configs', label: 'Reset Configs'},
+        {storageKey: 'pomodoro-session', label:'Reset Pomodoro'}
+        
+    ]}
+  />
 }

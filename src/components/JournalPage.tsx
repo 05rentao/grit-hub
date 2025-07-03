@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import useJournal from '../hooks/useJournal.ts';
 import { BrushCleaning, PenLine, Trash2 } from 'lucide-react';
+import ResetStorageBox from './ResetStorageButton.js';
+
 
 export default function JournalBlock() {
   const {title, setTitle, content, setContent, 
@@ -109,7 +111,12 @@ export default function JournalBlock() {
       </div>
     </div>
 
-    <ResetButton />
+    <ResetStorageBox 
+      buttons={[
+        { storageKey: 'journal-entries', label: 'Reset Journal' }
+      ]} 
+      className=''
+    />
   </div>
   )}
 

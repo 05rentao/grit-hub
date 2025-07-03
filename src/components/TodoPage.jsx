@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import useTodoManager from '../hooks/useTodoManager.js';
 import { X, Minus } from 'lucide-react';
-import ResetStorageButton from './ResetStorageButton.js';
-
+import { ResetStorageButton } from './ResetStorageButton.js';
+import ResetStorageBox from './ResetStorageButton.js';
 
 export default function TodoPage() {
 
@@ -52,6 +52,13 @@ export default function TodoPage() {
       </TodoListBox>
     ))}
     <AddNewListButton />
+    
+    <ResetStorageBox 
+          buttons={[
+            { storageKey: 'todo-lists', label: 'Reset Todos' }
+          ]} 
+          className=''
+        />
   </ul>
   )}
 
@@ -140,7 +147,7 @@ export function TodoItem({ item, onToggle, onDelete}) {
         >
         <X size={20} />
       </button>
-      <ResetStorageButton storageKey='todo-lists' />
+      
     </div>
   );
 }
