@@ -1,6 +1,6 @@
 export default function LandingGrid() {
     return (
-        <div className="grid grid-cols-9 grid-rows-3 gap-4 p-4 h-full">
+        <div className="grid grid-cols-9 grid-rows-3 gap-4 h-full">
 
             <Box text="Box A" className="col-span-4" />
             <Box text="Box B" className="col-span-2" />

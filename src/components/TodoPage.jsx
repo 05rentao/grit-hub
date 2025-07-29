@@ -26,7 +26,7 @@ export default function TodoPage() {
         <button
           onClick={addNewList}
           className="
-            p-4 rounded-lg w-64 text-3xl
+            p-4 rounded-lg w-64 text-2xl font-bold
             box-border bg-bg border-4 border-border 
             flex flex-row justify-center items-center h-full flex-shrink-0
             hover:bg-bg-secondary hover:text-txt-secondary transition-colors duration-300"
@@ -37,7 +37,7 @@ export default function TodoPage() {
   };
 
   return ( 
-  <ul className="flex justify-start items-start p-4 overflow-x-auto w-full h-full gap-4">
+  <ul className="flex justify-start items-start overflow-x-auto w-full h-full gap-4">
     {/* Add button box */}
     {lists.map((list, i) => (
       <TodoListBox key={i} className="flex-shrink-0 w-full h-full">
@@ -80,8 +80,8 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
   return (
     <div className="flex flex-col h-full w-full">
       {/* List title */}
-      <div className="flex justify-start items-center m-2 mb-8">
-        <h2 className="flex flex-1 text-xl font-bold">{name}</h2>
+      <div className="flex justify-start items-center mb-2">
+        <h2 className="flex flex-1 text-l font-bold">{name}</h2>
         <button 
           onClick={() => onDeleteList()}
           className="text-txt hover:text-txt-secondary hover:bg-bg-secondary rounded-sm transition-colors duration-300"
@@ -110,14 +110,14 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
               setNewText(''); // clear input field
             }
           }}
-          className="flex mt-2 w-full"
+          className="flex mt-1 w-full"
         >
           <input 
             type="text" 
             value={newText} 
             onChange={(e) => setNewText(e.target.value)} 
             placeholder="Add new item" 
-            className="flex-1 p-2 w-full border border-border rounded-l-lg bg-bg text-txt "
+            className="flex-1 p-1 w-full border border-border rounded-md bg-bg text-txt "
           />
 
         </form>
@@ -128,14 +128,14 @@ export function TodoList({ name, items, onAddItem, onDeleteList, onToggleItem, o
 
 export function TodoItem({ item, onToggle, onDelete}) {
   return (
-    <div className="flex justify-start items-start mb-1 text-xl w-full">
+    <div className="flex justify-start items-start mb-1 text-l w-full">
       <input 
         type="checkbox" 
         checked={item.done} 
         onChange={onToggle} 
         className="mr-2 mt-2" />
 
-      <div className="flex flex-1 w-full justify-start flex-wrap wrap-break-word p-0">
+      <div className="flex flex-1 w-full justify-start flex-wrap wrap-break-word">
         <span className={item.done ? "line-through text-gray-400" : ""}>
           {item.text}
         </span>
@@ -143,7 +143,7 @@ export function TodoItem({ item, onToggle, onDelete}) {
 
       <button
         onClick={onDelete}
-        className="mx-2 mt-1 hover:text-txt-secondary hover:bg-bg-secondary rounded-sm transition-colors duration-300 text-txt"
+        className="ml-2 mt-1 hover:text-txt-secondary hover:bg-bg-secondary rounded-sm transition-colors duration-300 text-txt"
         >
         <X size={20} />
       </button>

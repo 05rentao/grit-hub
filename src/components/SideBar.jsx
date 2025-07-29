@@ -5,7 +5,7 @@ export default function SideBar() {
     return (
         <div>
         <header className="
-            h-full p-1 ml-4 mr-4 fixed
+            h-full ml-4 fixed
             bg-bg border-l-4 border-r-4 border-border 
             flex flex-col justify-start items-center">
 
@@ -29,12 +29,12 @@ export function SideBarItem({ Icon, label, to }) {
         onClick={() => navigate(to)} 
         className="flex flex-col items-center group -2">
             <Icon
-            size={48}
-            className="p-2 rounded-lg m-2
+            size={40}
+            className="p-2 rounded-lg my-1
             bg-bg text-txt
             hover:bg-bg-secondary hover:text-txt-secondary
             transition-colors duration-300 
-            cursor-pointer"
+            cursor-pointer "
             />
             <span className="
             text-xs -mt-1.5 opacity-0 group-hover:opacity-100 transition">{label}</span>

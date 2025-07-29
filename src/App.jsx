@@ -18,7 +18,7 @@ function App() {
         <SideBar />
 
       {/* MAIN */}
-      <main className="h-full w-full ml-24 p-4 overflow-x-auto ">
+      <main className="h-full w-full ml-20 p-4 overflow-x-auto ">
         <Routes>
           <Route path="/" element={<LandingGrid />} />
           <Route path="/todo" element={<TodoPage />} />

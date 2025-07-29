@@ -25,7 +25,7 @@ export default function PomodoroPage() {
           <button
             key={value}
             onClick={() => changeMode(value)}
-            className={`flex flex-1 justify-center items-center p-4 text-5xl transition-colors duration-300 rounded-none
+            className={`flex flex-1 justify-center items-center p-3 text-2xl font-bold transition-colors duration-300 rounded-none
               ${mode === value ? 'bg-bg-secondary text-txt-secondary' : 'bg-bg-primary text-txt'}`}
           >
             {label}
@@ -61,10 +61,10 @@ export default function PomodoroPage() {
           getPrimaryButtonConfig().action();
         }} 
         className={` 
-          p-4 rounded-md w-full
-           bg-bg border-4 border-border 
+          p-3 rounded-md w-full
+          bg-bg border-4 border-border 
           hover:bg-bg-secondary hover:text-txt-secondary 
-          transition-color duration-300 text-4xl
+          transition-color duration-300 text-2xl font-bold
         `}
       >
         {getPrimaryButtonConfig().label}
@@ -99,10 +99,10 @@ export default function PomodoroPage() {
       {!revealed ? (
         <button
           onClick={() => setRevealed(true)}
-          className="p-4 rounded-md w-full
+          className="p-3 rounded-md w-full
            bg-bg border-4 border-border 
           hover:bg-bg-secondary hover:text-txt-secondary 
-          transition-color duration-300 text-4xl"
+          transition-color duration-300 text-2xl font-bold"
         >
           More Time
         </button>
@@ -118,7 +118,7 @@ export default function PomodoroPage() {
           className="p-4 rounded-md w-full
            bg-bg border-4 border-border 
           hover:bg-bg-secondary hover:text-txt-secondary 
-          transition-color duration-300 text-4xl"
+          transition-color duration-300 text-2xl font-bold"
         > 
           {secondaryButtonConfig.label}
         </button>
@@ -131,7 +131,7 @@ export default function PomodoroPage() {
           className="p-4 rounded-md w-full
            bg-bg border-4 border-border 
           hover:bg-bg-secondary hover:text-txt-secondary 
-          transition-color duration-300 text-4xl"
+          transition-color duration-300 text-2xl font-bold"
         >
           {secondaryButtonConfig.label}
         </button>
@@ -142,7 +142,7 @@ export default function PomodoroPage() {
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full bg-bg text-txt">
-      <div className="flex flex-col items-center justify-center h-full w-1/2  p-4 gap-4">
+      <div className="flex flex-col items-center justify-center h-full w-1/2 py-2 gap-4">
         <ModeDisplay />
         <Time 
           key={isEditing ? 'editing' : 'viewing'}
@@ -176,7 +176,7 @@ export default function PomodoroPage() {
 
 export function CheckBox({ className = '', value, onChange, label }) {
   return (
-    <label className='m-2 flex justify-start items-center cursor-pointer'>
+    <label className=' flex justify-start items-center cursor-pointer'>
       <input
         type="checkbox"
         checked={value}
@@ -184,7 +184,7 @@ export function CheckBox({ className = '', value, onChange, label }) {
         className={`w-6 h-6 rounded-lg bg-bg border-4 border-border
           ${className}`}
       />
-      <span className="ml-2 text-2xl text-txt">{ label }</span>
+      <span className="ml-2 text-xl text-txt">{ label }</span>
     </label>
 
   );
