@@ -1,0 +1,5 @@
+TODO:
+
+- fix pomodoro (shortbreak) when you pause change time and resume,
+    - change 'edit duration' to 'save duration'
+    - currently resuming from previous paused time
